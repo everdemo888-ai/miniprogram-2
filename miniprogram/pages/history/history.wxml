@@ -1,0 +1,85 @@
+<view class="page-history">
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-inner">
+      <view class="nav-back" bindtap="onBack">‹</view>
+      <text class="nav-title">历史记录</text>
+      <view class="nav-placeholder"></view>
+    </view>
+  </view>
+
+  <view class="tabs">
+    <view
+      class="tab-item {{activeTab === 'jobs' ? 'tab-active' : ''}}"
+      data-tab="jobs"
+      bindtap="onTabChange"
+    >
+      解析任务
+    </view>
+    <view
+      class="tab-item {{activeTab === 'usage' ? 'tab-active' : ''}}"
+      data-tab="usage"
+      bindtap="onTabChange"
+    >
+      使用记录
+    </view>
+  </view>
+
+  <scroll-view class="list-scroll" scroll-y show-scrollbar="{{false}}">
+    <block wx:if="{{activeTab === 'jobs'}}">
+      <view class="loading-block" wx:if="{{jobsLoading}}">
+        <text class="loading-text">加载中…</text>
+      </view>
+      <view class="empty-block" wx:elif="{{!jobsList.length}}">
+        <text class="empty-title">暂无解析任务</text>
+        <text class="empty-desc">在首页提交链接后，任务会出现在这里</text>
+      </view>
+      <view wx:else class="card-list">
+        <view
+          class="job-card"
+          wx:for="{{jobsList}}"
+          wx:key="id"
+          data-index="{{index}}"
+          bindtap="onJobTap"
+        >
+          <view class="job-card-top">
+            <text class="job-action">{{item.actionName}}</text>
+            <text class="job-status job-status-{{item.status}}">{{item.statusText}}</text>
+          </view>
+          <text class="job-link">{{item.linkPreview}}</text>
+          <view class="job-card-bottom">
+            <text class="job-time">{{item.timeText}}</text>
+            <text class="job-hint" wx:if="{{item.status === 'completed'}}">点按可复制直链</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="loading-block" wx:if="{{usageLoading}}">
+        <text class="loading-text">加载中…</text>
+      </view>
+      <view class="empty-block" wx:elif="{{!usageList.length}}">
+        <text class="empty-title">暂无使用记录</text>
+        <text class="empty-desc">解析成功后会自动记一条摘要</text>
+      </view>
+      <view wx:else class="card-list">
+        <view
+          class="usage-card"
+          wx:for="{{usageList}}"
+          wx:key="id"
+          data-index="{{index}}"
+          bindtap="onUsageTap"
+        >
+          <view class="usage-row">
+            <text class="usage-action">{{item.actionName}}</text>
+            <text class="usage-platform" wx:if="{{item.platform}}">{{item.platform}}</text>
+          </view>
+          <text class="usage-title" wx:if="{{item.title}}">{{item.title}}</text>
+          <text class="usage-link">{{item.linkPreview}}</text>
+          <text class="usage-time">{{item.timeText}}</text>
+        </view>
+      </view>
+    </block>
+    <view class="list-bottom-spacer"></view>
+  </scroll-view>
+</view>

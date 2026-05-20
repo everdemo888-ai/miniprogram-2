@@ -1,0 +1,252 @@
+<view class="page-home">
+  <view class="header-bg">
+    <view class="status-spacer" style="height: {{statusBarHeight}}px;"></view>
+    <view class="header-content">
+      <view class="header-eyebrow">
+        <text class="header-eyebrow-part">无水印</text>
+        <text class="header-eyebrow-sep">·</text>
+        <text class="header-eyebrow-part">可保存</text>
+      </view>
+      <text class="header-title">一键提取视频</text>
+      <text class="header-sub">粘贴平台分享链接，解析完成后即可预览、复制直链或保存到相册；若一次未成功可多试几次</text>
+    </view>
+  </view>
+
+  <view class="card-main">
+    <view class="link-input-glow">
+      <textarea
+        class="link-input"
+        placeholder="粘贴分享链接（抖音/快手/小红书/B站等，以实际解析结果为准）"
+        placeholder-class="link-placeholder"
+        value="{{videoLink}}"
+        bindinput="onLinkInput"
+        auto-height
+      />
+      <view class="link-clear" wx:if="{{videoLink}}" catchtap="onClearLink">
+        <text class="link-clear-icon">✕</text>
+      </view>
+    </view>
+    <view class="btn-row">
+      <button class="btn btn-paste" bindtap="onPasteLink">粘贴链接</button>
+      <button class="btn btn-extract" bindtap="onExtract">
+        <text class="wand">✦</text>
+        <text>一键提取视频</text>
+      </button>
+    </view>
+    <text class="card-extract-tip">若一次解析不成功，可多点击几次「一键提取视频」或稍后再试</text>
+  </view>
+
+  <view class="job-panel" wx:if="{{jobId}}">
+    <view class="job-title">任务状态</view>
+    <view class="job-progress-block">
+      <view class="job-progress-track">
+        <view
+          class="job-progress-fill {{jobStatusText === '失败' ? 'job-progress-fill--fail' : ''}}"
+          style="width: {{jobProgressPercent}}%;"
+        ></view>
+      </view>
+      <view class="job-progress-meta">
+        <text
+          class="job-progress-percent {{jobStatusText === '失败' ? 'job-progress-percent--fail' : ''}}"
+        >{{jobProgressPercent}}%</text>
+        <text class="job-progress-hint">进度为估算，完成时 100%</text>
+      </view>
+    </view>
+    <view class="job-row">
+      <text class="job-label">任务类型</text>
+      <text class="job-value">{{jobActionName}}</text>
+    </view>
+    <view class="job-row">
+      <text class="job-label">任务ID</text>
+      <text class="job-value">{{jobIdShort}}</text>
+    </view>
+    <view class="job-row">
+      <text class="job-label">状态</text>
+      <text class="job-value">{{jobStatusText}}{{isPolling ? '（轮询中）' : ''}}</text>
+    </view>
+    <view class="job-row">
+      <text class="job-label">查询次数</text>
+      <text class="job-value">{{pollCount}}</text>
+    </view>
+    <view class="job-result" wx:if="{{jobResultMessage}}">
+      <text class="job-result-text">{{jobResultMessage}}</text>
+    </view>
+    <view class="job-retry-tip" wx:if="{{jobStatusText === '失败'}}">
+      <text class="job-retry-tip-text">可多次点击「重试当前任务」，或修改链接后再次「一键提取」</text>
+    </view>
+    <view class="job-transcript-wrap" wx:if="{{jobTranscript}}">
+      <view class="job-transcript-head">
+        <text class="job-transcript-label">识别文案</text>
+        <text class="job-transcript-copy" bindtap="onCopyTranscript">复制全文</text>
+      </view>
+      <scroll-view class="job-transcript-scroll" scroll-y show-scrollbar="{{false}}">
+        <text class="job-transcript-body">{{jobTranscript}}</text>
+      </scroll-view>
+    </view>
+    <view class="job-video-title-wrap" wx:if="{{jobVideoTitle}}">{{jobVideoTitle}}</view>
+    <view class="job-video-wrap" wx:if="{{jobVideoUrl}}">
+      <video
+        id="jobPreviewVideo"
+        class="job-video"
+        src="{{jobVideoUrl}}"
+        controls
+        show-center-play-btn="{{false}}"
+        object-fit="contain"
+        bindplay="onJobVideoPlay"
+        bindpause="onJobVideoPause"
+        bindended="onJobVideoEnded"
+      ></video>
+      <view
+        class="job-video-play-mask"
+        wx:if="{{!jobVideoPlaying}}"
+        catchtap="onJobVideoPlayTap"
+      >
+        <image
+          class="job-video-play-icon"
+          src="/images/icon-play-large.svg"
+          mode="aspectFit"
+        />
+      </view>
+    </view>
+    <audio
+      wx:if="{{jobAudioUrl}}"
+      class="job-audio"
+      src="{{jobAudioUrl}}"
+      controls
+    ></audio>
+    <view class="job-download-bar" wx:if="{{jobDownloading}}">
+      <view class="job-download-track">
+        <view class="job-download-fill" style="width: {{jobDownloadPercent}}%;"></view>
+      </view>
+      <text class="job-download-text">下载中 {{jobDownloadPercent}}%</text>
+    </view>
+    <view class="job-preview-hint" wx:if="{{jobRawVideoUrl}}">
+      预览黑屏、卡顿或无法播放时：先点下方「复制」按钮，再打开手机浏览器粘贴链接即可观看。
+    </view>
+    <view class="job-actions">
+      <button
+        class="job-btn job-btn-download"
+        wx:if="{{(jobVideoUrl || jobRawVideoUrl) && !jobAudioUrl}}"
+        bindtap="onSaveVideoToAlbum"
+      >
+        保存视频到相册
+      </button>
+      <button class="job-btn" wx:if="{{jobRawVideoUrl}}" bindtap="onCopyVideoUrl">{{copyUrlButtonLabel}}</button>
+      <button class="job-btn" wx:if="{{jobCloudFileId}}" bindtap="onCopyCloudFileId">复制云文件 ID</button>
+      <button class="job-btn" bindtap="onCopyJobId">复制任务ID</button>
+      <button class="job-btn" bindtap="onRefreshJobStatus">刷新状态</button>
+      <button class="job-btn job-btn-primary" bindtap="onRetryLastAction">重试当前任务</button>
+    </view>
+  </view>
+
+  <view class="link-hint" bindtap="onVideoChannelHelp">
+    <image class="hint-icon" src="/images/icon-infinity.svg" mode="aspectFit" />
+    <text class="hint-text">微信视频号提取方法</text>
+    <text class="hint-arrow">›</text>
+  </view>
+
+  <view class="section-tools">
+    <view class="section-title-wrap">
+      <view class="section-bar"></view>
+      <text class="section-title">实用工具</text>
+    </view>
+
+    <view class="tools-grid">
+      <view class="tool-card" bindtap="onToolChannel">
+        <image class="tool-card-icon" src="/images/icon-infinity.svg" mode="aspectFit" />
+        <view class="tool-card-info">
+          <text class="tool-card-title">视频号提取</text>
+          <text class="tool-card-desc">按引导保存内容</text>
+        </view>
+      </view>
+      <view class="tool-card" bindtap="onToolTranscribe">
+        <image class="tool-card-icon" src="/images/icon-text.svg" mode="aspectFit" />
+        <view class="tool-card-info">
+          <text class="tool-card-title">提取文案</text>
+          <text class="tool-card-desc">聊天或相册音视频</text>
+        </view>
+      </view>
+      <view class="tool-card" bindtap="onToolCompress">
+        <image class="tool-card-icon" src="/images/icon-chart.svg" mode="aspectFit" />
+        <view class="tool-card-info">
+          <text class="tool-card-title">视频压缩</text>
+          <text class="tool-card-desc">本机压缩后上传</text>
+        </view>
+      </view>
+      <view class="tool-card" bindtap="onToolMd5">
+        <image class="tool-card-icon" src="/images/icon-md5.svg" mode="aspectFit" />
+        <view class="tool-card-info">
+          <text class="tool-card-title">MD5 变更</text>
+          <text class="tool-card-desc">生成新文件副本</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="history-panel">
+    <view class="history-header">
+      <text class="history-title">最近任务</text>
+      <view class="history-actions">
+        <text class="history-refresh" bindtap="onRefreshRecentJobs">刷新</text>
+        <text class="history-more" bindtap="onGoHistory">全部记录</text>
+      </view>
+    </view>
+    <view class="history-loading" wx:if="{{recentLoading}}">加载中...</view>
+    <view class="history-error" wx:elif="{{recentError}}">{{recentError}}</view>
+    <view class="history-empty" wx:elif="{{!recentJobs.length}}">暂无记录，先提交一次提取任务</view>
+    <block wx:else>
+      <view
+        class="history-item"
+        wx:for="{{recentJobs}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onPickHistoryJob"
+      >
+        <view class="history-top">
+          <text class="history-action">{{item.actionName}}</text>
+          <view class="history-top-right">
+            <text class="history-status">{{item.statusText}}</text>
+            <view class="history-delete" data-id="{{item.id}}" catchtap="onDeleteHistoryJob">
+              <text class="history-delete-icon">✕</text>
+            </view>
+          </view>
+        </view>
+        <text class="history-link">{{item.linkPreview}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="footer-contact-wrap">
+    <button
+      class="footer-contact-btn"
+      plain="{{true}}"
+      hover-class="footer-contact-btn--hover"
+      open-type="contact"
+      session-from="index"
+    >
+      <view class="footer-contact-inner">
+        <image class="footer-contact-icon" src="/images/icon-headset.svg" mode="aspectFit" />
+        <text class="footer-contact-label">联系客服</text>
+        <text class="footer-contact-chevron">›</text>
+      </view>
+    </button>
+  </view>
+
+  <view class="page-bottom-spacer"></view>
+
+  <!-- 相册/相机前隐私协议（基础库 ≥2.32.3，与 wx.getPrivacySetting 配合） -->
+  <view class="privacy-gate" wx:if="{{showPrivacyGate}}">
+    <view class="privacy-gate-mask" catchtap="onPrivacyGateCancel"></view>
+    <view class="privacy-gate-box" catchtap="noopPrivacyBox">
+      <text class="privacy-gate-title">隐私保护提示</text>
+      <text class="privacy-gate-desc">使用相册或拍摄视频前，需先同意：{{privacyContractName}}</text>
+      <button class="privacy-gate-link" bindtap="onOpenPrivacyContract">查看完整指引</button>
+      <button
+        class="privacy-gate-btn"
+        open-type="agreePrivacyAuthorization"
+        bindagreeprivacyauthorization="onPrivacyAgreeContinue"
+      >同意并继续</button>
+      <button class="privacy-gate-cancel" bindtap="onPrivacyGateCancel">暂不使用</button>
+    </view>
+  </view>
+</view>

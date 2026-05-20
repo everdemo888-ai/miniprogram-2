@@ -1,0 +1,28 @@
+<view class="tab-bar" style="padding-bottom: {{safeBottom}}px;">
+  <view
+    class="tab-bar-item"
+    data-path="/pages/index/index"
+    data-index="0"
+    bindtap="switchTab"
+  >
+    <image
+      class="tab-icon"
+      src="{{selected === 0 ? '/images/tab-home-active.svg' : '/images/tab-home.svg'}}"
+      mode="aspectFit"
+    />
+    <text class="tab-text {{selected === 0 ? 'tab-text-active' : ''}}">首页</text>
+  </view>
+  <view
+    class="tab-bar-item"
+    data-path="/pages/mine/mine"
+    data-index="1"
+    bindtap="switchTab"
+  >
+    <image
+      class="tab-icon"
+      src="{{selected === 1 ? '/images/tab-mine-active.svg' : '/images/tab-mine.svg'}}"
+      mode="aspectFit"
+    />
+    <text class="tab-text {{selected === 1 ? 'tab-text-active' : ''}}">我的</text>
+  </view>
+</view>

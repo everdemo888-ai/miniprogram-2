@@ -1,0 +1,215 @@
+page {
+  background: #fff9f3;
+  min-height: 100%;
+}
+
+.page-mine {
+  width: 100%;
+  padding-bottom: calc(140rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.status-spacer {
+  width: 100%;
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 28rpx 22rpx;
+  background: #fff9f3;
+}
+
+.avatar {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 18rpx;
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+}
+
+.nickname {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.user-id {
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.stats-card {
+  display: flex;
+  align-items: stretch;
+  margin: 0 24rpx 20rpx;
+  padding: 28rpx 20rpx;
+  background: #fffcfa;
+  border-radius: 18rpx;
+  box-shadow:
+    0 4rpx 20rpx rgba(232, 140, 168, 0.09),
+    0 2rpx 12rpx rgba(255, 214, 140, 0.06);
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #c76b88;
+  line-height: 1.2;
+}
+
+.stat-value-sm {
+  font-size: 32rpx;
+}
+
+.stat-label {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.stat-divider {
+  width: 1rpx;
+  background: rgba(232, 160, 180, 0.35);
+  margin: 0 8rpx;
+}
+
+.menu-section {
+  margin: 8rpx 24rpx 0;
+  background: #fffcfa;
+  border-radius: 18rpx;
+  overflow: hidden;
+  box-shadow:
+    0 4rpx 18rpx rgba(232, 140, 168, 0.06),
+    0 1rpx 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 26rpx;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.menu-icon {
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 18rpx;
+  flex-shrink: 0;
+}
+
+.menu-label {
+  font-size: 28rpx;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+}
+
+.menu-chevron {
+  font-size: 46rpx;
+  color: rgba(199, 107, 136, 0.35);
+  line-height: 1;
+  margin-left: 10rpx;
+}
+
+.menu-divider {
+  height: 1rpx;
+  background: rgba(232, 160, 180, 0.22);
+  margin-left: 26rpx;
+  margin-right: 26rpx;
+}
+
+.menu-right-extra {
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.menu-extra {
+  font-size: 24rpx;
+  color: rgba(0, 0, 0, 0.4);
+  margin-left: 14rpx;
+  max-width: 320rpx;
+  text-align: right;
+}
+
+.dot-red {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #ff3b30;
+}
+
+.page-bottom-spacer {
+  height: 24rpx;
+}
+
+/*
+ * 联系客服：可见布局与「常见问题」等行完全一致（两个 flex 子节点：menu-left + chevron）。
+ * 透明 button 绝对定位铺满整行承接点击；避免「单行里只放一个 button」导致宽度收缩 + 默认边框（3.15 灰度亦常见）。
+ */
+.menu-row.menu-row-contact {
+  position: relative;
+  z-index: 0;
+}
+
+.contact-hit-area {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none !important;
+  border-width: 0 !important;
+  border-radius: 0;
+  background: transparent;
+  line-height: 0;
+  font-size: 0;
+  color: transparent;
+  overflow: hidden;
+}
+
+.contact-hit-area::after {
+  display: none !important;
+  border: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.contact-hit-area--hover {
+  background: rgba(255, 200, 210, 0.22) !important;
+}
+
+.menu-row-contact .menu-left,
+.menu-row-contact .menu-chevron {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+

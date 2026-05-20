@@ -1,0 +1,16 @@
+.DS_Store
+node_modules/
+miniprogram_npm/
+cloudfunctions/*/node_modules/
+
+# Personal debug/docs (not project source)
+DEBUG_RECORD.md
+INTERVIEW_PORTFOLIO.md
+
+# WeChat DevTools local override
+project.private.config.json
+
+# IDE
+.idea/
+*.swp
+*.swo
