@@ -44,7 +44,7 @@
     "swc": false,
     "disableSWC": true
   },
-  "appid": "请替换为你的微信小程序 AppID",
+  "appid": "wxe5d85d755d567fad",
   "projectname": "xiaobaitu",
   "libVersion": "2.33.0",
   "condition": {
@@ -67,7 +67,12 @@
   "compileType": "miniprogram",
   "srcMiniprogramRoot": "miniprogram/",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "miniprogram/dist"
+      }
+    ],
     "include": []
   },
   "editorSetting": {
