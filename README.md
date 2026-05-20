@@ -25,6 +25,7 @@ docs/                  # 项目文档
 
 ## 文档
 - [视频演示](https://636c-请替换为你的云环境 ID-1413227288.tcb.qcloud.la/demo.MP4?sign=ab8fa685a4c1c38747f9d88b4e3e01e1&t=1779300554)
+  点击下载视频观看演示
 - [项目描述](docs/STAR.md)
 - [缺陷与展望](docs/ROADMAP.md)
 - [技术栈](docs/TECH_STACK.md)
