@@ -10,6 +10,11 @@ INTERVIEW_PORTFOLIO.md
 # WeChat DevTools local override
 project.private.config.json
 
+# Local config files with real IDs (GitHub uses placeholder versions)
+project.config.json
+miniprogram/app.js
+
+
 # IDE
 .idea/
 *.swp
