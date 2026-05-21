@@ -70,6 +70,8 @@ docs/                  # 项目文档
 ## 文档
 - [视频演示](https://636c-cloud1-2gjjfajt727732cc-1413227288.tcb.qcloud.la/demo.MP4?sign=ab8fa685a4c1c38747f9d88b4e3e01e1&t=1779300554)
   点击下载视频观看演示
+- [项目运行证明](https://636c-cloud1-2gjjfajt727732cc-1413227288.tcb.qcloud.la/iShot_2026-05-22_00.11.48.mp4?sign=6fd4aa53c3b83e60fb642f8872457918&t=1779380606)
+  点击下载视频观看项目运行录屏
 - [项目描述](docs/STAR.md)
 
 - [缺陷与展望](docs/ROADMAP.md)
