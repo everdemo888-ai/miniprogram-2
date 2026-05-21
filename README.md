@@ -22,10 +22,50 @@
 ## 项目结构
 
 ```
-miniprogram/           # 小程序前端（包含 app.js 入口文件）
-cloudfunctions/        # 云函数（按类型分层：parsers/ media/ guards/）
+miniprogram/           # 小程序前端
+cloudfunctions/        # 云函数
 docs/                  # 项目文档
 ```
+
+### 重要代码文件说明
+
+#### 小程序前端 `miniprogram/`
+
+| 文件 | 说明 |
+|------|------|
+| `app.js` | 应用入口，云环境初始化，全局数据 `globalData` |
+| `app.json` | 页面路由、窗口样式、自定义 TabBar 配置 |
+| `pages/index/index.*` | 首页 — 粘贴链接一键解析、本地上传、压缩/提取文案/MD5 变更 |
+| `pages/history/history.*` | 历史记录 — 查看/重试/删除过往任务，双 Tab 切换（任务记录 / 使用记录） |
+| `pages/mine/mine.*` | 我的 — 用户信息、积分签到、激励广告、FAQ |
+| `pages/guide/guide.*` | 引导页 — 新用户功能指引 |
+| `custom-tab-bar/index.*` | 自定义底部导航栏（首页 / 我的） |
+| `utils/cloudUtils.js` | 云函数调用封装（`callCloud`） |
+| `utils/rewardAdGate.js` | 激励广告门控 — 看广告赚积分 / 消耗积分跳过广告 |
+| `utils/jobLabels.js` | 任务类型名称和状态文案映射 |
+| `utils/cloudErrorText.js` | 用户可见的错误提示文案 |
+
+#### 云函数 `cloudfunctions/quickstartFunctions/`
+
+| 文件 | 说明 |
+|------|------|
+| `index.js` | 云函数入口 — 路由分发（11 个 action），任务状态流转（queued → processing → completed/failed），调用 parser / media / guard 完成实际处理 |
+| `config.js` | 全局常量 — 超时时间、上传限制、平台 Referer、业务参数 |
+| `messages.js` | 所有用户可见提示和错误消息的集中管理 |
+| `parsers/videoExtract.js` | 多平台视频解析 — 从抖音/快手/小红书/B站/视频号分享链接提取无水印直链，内置 BugPK/龟龟呀/HelloTik 等多线路 fallback |
+| `guards/bizGuard.js` | 业务防护 — 提交频控、广告奖励日上限、日志脱敏 |
+| `media/asrRecTask.js` | 语音识别调度 — 提交腾讯云 ASR 录音文件识别任务并轮询结果 |
+| `media/asrTencent.js` | 腾讯云 ASR API 封装（CreateRecTask / DescribeTaskStatus） |
+| `media/ciCompressTask.js` | 视频压缩调度 — 提交 COS 数据万象转码任务并轮询结果 |
+| `media/tencentCiTranscode.js` | 腾讯云 COS 数据万象 API 封装（CreateMediaJobs / DescribeMediaJob） |
+
+#### 配置文件
+
+| 文件 | 说明 |
+|------|------|
+| `cloudbaserc.json` | CloudBase 部署配置 |
+| `project.config.json` | 微信开发者工具项目配置（AppID、云开发根目录等） |
+| `cloudfunctions/quickstartFunctions/ENV.example` | 云函数环境变量完整说明 |
 
 ## 文档
 - [视频演示](https://636c-cloud1-2gjjfajt727732cc-1413227288.tcb.qcloud.la/demo.MP4?sign=ab8fa685a4c1c38747f9d88b4e3e01e1&t=1779300554)
