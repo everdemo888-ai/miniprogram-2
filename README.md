@@ -76,6 +76,7 @@ docs/                  # 项目文档
 - [技术栈](docs/TECH_STACK.md)
 - [报错排查](docs/DEBUG.md)
 - [AI 协作记录](docs/AI_COLLABORATION.md)
+- [潜在风险说明](docs/RISK.md)
 
 ## 快速开始
 
