@@ -68,3 +68,24 @@
 3. 如果新增了子目录（如 `parsers/`、`media/`），确认 `package.json` 放在 `quickstartFunctions/` 根目录
 
 **解决方法**：右键云函数 → 上传并部署：云端安装依赖。如果依赖正确但仍有问题，在云开发控制台查看云函数日志中的具体错误。
+
+---
+
+## 6. 云函数调用超时
+
+**现象**：Console 中调用云函数后返回 `Error: timeout`，堆栈指向 `WAServiceMainContext.js`。
+
+**原因**：视频解析链路涉及多供应商 retry（BugPK → 龟龟呀 → HelloTik → 内置线路），各重试 3 次，外加数据库操作和下载上传，可能在默认 60 秒内未能完成。
+
+**排查步骤**：
+
+1. 先确认是否所有调用都超时，还是仅特定链接：换个已跑通的短链接（如快手短链）再试
+2. 查看云函数日志：云开发控制台 → 云函数 → quickstartFunctions → 日志，确认卡在哪个环节
+3. 若是免费接口响应慢，可通过环境变量跳过慢接口（如 `BUGPK_DISABLE=1` 跳过 BugPK）
+
+**解决方法**：
+
+- 临时：云开发控制台 → 云函数 → quickstartFunctions → 配置 → 超时时间调大到 **120 秒**
+- 长期：配置 `VIDEO_PARSE_URL` 商用解析接口（单次请求、响应快），减少多线路 fallback 耗时
+
+![timeout error](../test/screenshots/SCR-20260521-tvxf.png)
