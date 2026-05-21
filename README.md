@@ -79,9 +79,9 @@ docs/                  # 项目文档
 | `cloudfunctions/quickstartFunctions/ENV.example` | 云函数环境变量完整说明 |
 
 ## 文档
-- [视频演示](https://636c-cloud1-2gjjfajt727732cc-1413227288.tcb.qcloud.la/demo.MP4?sign=0d389a06cfd803f55953129b196594a0&t=1779380921)
+- [视频演示](https://636c-cloud1-2gjjfajt727732cc-1413227288.tcb.qcloud.la/demo.MP4?sign=22c1bfd8cc13fadc05a4f87206e4683b&t=1779382235)
   点击下载视频观看演示
-- [项目运行证明](https://636c-cloud1-2gjjfajt727732cc-1413227288.tcb.qcloud.la/iShot_2026-05-22_00.11.48.mp4?sign=6fd4aa53c3b83e60fb642f8872457918&t=1779380606)
+- [项目运行证明](https://636c-cloud1-2gjjfajt727732cc-1413227288.tcb.qcloud.la/iShot_2026-05-22_00.11.48.mp4?sign=14b26894a2aa3ff7da084568f6cdbd05&t=1779382083)
   点击下载视频观看项目运行录屏
 - [项目描述](docs/STAR.md)
 
