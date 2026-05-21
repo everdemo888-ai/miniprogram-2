@@ -1,0 +1,42 @@
+[
+  {
+    "name": "抖音解析",
+    "body": {
+      "type": "requestVideoJob",
+      "videoAction": "watermark_remove",
+      "videoLink": "5.38 :8pm 01/14 UlP:/ W@z.gO 身体素质终于达到了控球的速率  https://v.douyin.com/toQpTlX5wyA/ 复制此链接，打开Dou音搜索，直接观看视频！"
+    }
+  },
+  {
+    "name": "快手解析",
+    "body": {
+      "type": "requestVideoJob",
+      "videoAction": "watermark_remove",
+      "videoLink": "https://www.kuaishou.com/f/X-7aIXl4t2uKH1j3"
+    }
+  },
+  {
+    "name": "B站解析",
+    "body": {
+      "type": "requestVideoJob",
+      "videoAction": "watermark_remove",
+      "videoLink": "https://www.bilibili.com/video/BV1UE9CBqEPa/?share_source=copy_web"
+    }
+  },
+  {
+    "name": "小红书解析",
+    "body": {
+      "type": "requestVideoJob",
+      "videoAction": "watermark_remove",
+      "videoLink": "https://www.xiaohongshu.com/discovery/item/6a075e8f000000003502d241"
+    }
+  },
+  {
+    "name": "文案转写",
+    "body": {
+      "type": "requestVideoJob",
+      "videoAction": "transcribe",
+      "videoLink": "替换为 wx.cloud.uploadFile 返回的 cloud:// fileID"
+    }
+  }
+]

@@ -1,0 +1,4 @@
+{
+  "type": "getVideoJobStatus",
+  "jobId": "替换为 requestVideoJob 返回的 jobId"
+}
