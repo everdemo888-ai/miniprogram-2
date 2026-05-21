@@ -567,3 +567,20 @@ wx.cloud.callFunction({
 | TC-003 | 快手解析 | kuaishou | 1 轮 | ✅ | ✅ 短视频跳过 | 功能正常 |
 | TC-004 | 小红书解析 | xhs | 1 轮 | ❌ | ❌ | 需商用接口 |
 | TC-005 | B站解析 | bilibili | 1 轮 | ✅ | ✅ 5.4MB | 全链路通过 |
+
+---
+
+### 测试截图
+
+> 抱歉，截图当前未按用例分组。请对照上方用例查看图片内容，后续可补充标注对应关系。
+
+| 截图 | 描述 |
+|------|------|
+| ![](test/screenshots/SCR-20260521-tahz.png) | 截图 1 — tahz |
+| ![](test/screenshots/SCR-20260521-tcyu.png) | 截图 2 — tcyu |
+| ![](test/screenshots/SCR-20260521-tdcw.png) | 截图 3 — tdcw |
+| ![](test/screenshots/SCR-20260521-tfbl.png) | 截图 4 — tfbl |
+| ![](test/screenshots/SCR-20260521-tfer.png) | 截图 5 — tfer |
+| ![](test/screenshots/SCR-20260521-tfhh.png) | 截图 6 — tfhh |
+| ![](test/screenshots/SCR-20260521-tihe.png) | 截图 7 — tihe |
+| ![](test/screenshots/SCR-20260521-tivt.png) | 截图 8 — tivt |
