@@ -8,7 +8,7 @@
 /** 云函数内各阶段超时（毫秒） */
 const TIMEOUT = {
   /** 解析阶段超时 */
-  EXTRACT: 55000,
+  EXTRACT: 85000,
   /** 单次 API 请求超时（通用） */
   API_REQUEST: 28000,
   /** 聚合 API 请求超时（BugPK / 龟龟呀等） */
