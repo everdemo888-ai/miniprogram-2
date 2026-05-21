@@ -6,6 +6,17 @@
 >
 > 欢迎克隆、Star、提交 Issue 或贡献代码。
 
+> **注意**：本项目是微信小程序，无法像普通 Web 项目那样 `npm install && npm start` 直接跑。必须先完成以下准备：
+>
+> | 步骤 | 说明 |
+> |------|------|
+> | 注册小程序账号 | [微信公众平台](https://mp.weixin.qq.com/) 注册，获取 AppID |
+> | 开通云开发 | 微信开发者工具内开通，获取云环境 ID |
+> | 修改配置 | `project.config.json` 的 `appid` 改为你的 AppID，`miniprogram/app.js` 的 `env` 改为你的云环境 ID |
+> | 部署云函数 | 右键 `cloudfunctions/quickstartFunctions` → 上传并部署：云端安装依赖 |
+>
+> 这三步缺任何一步，项目都无法运行。具体操作见下方「快速开始」。
+
 ## MVP 功能点
 
 | 功能 | 说明 | 亮点 |
